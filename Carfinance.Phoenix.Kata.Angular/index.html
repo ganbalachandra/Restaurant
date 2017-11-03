@@ -3,19 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <title>Phoenix Kata Angular</title>
-    
+
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.min.js"></script>
+    <link href="Content/angular-material.css" rel="stylesheet" />
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-material.min.js"></script>
     <script src="app/module.js"></script>
     <script src="app/services/bookingService.js"></script>
     <script src="app/controllers/bookingcontroller.js"></script>
     <script src="app/services/bookingService.js"></script>
+    <script src="Scripts/moment-with-locales.min.js"></script>
+    <script src="Scripts/moment.min.js"></script>
+
 </head>
 <body ng-app="PhoenixKata" ng-controller="BookingController as vm">
 
-    <a ng-link="['Create']" class="btn btn-primary float-right" ng-click="vm.createBooking()">New Booking</a>
+    <a ng-link="['Create']" class="btn btn-primary float-right" ng-click="vm.displayForm()" ng-show="vm.showBookingButton">New Booking</a>
     <table class="table" ng-show="vm.displayBookingTable">
         <thead>
             <tr>
@@ -35,7 +42,7 @@
                 <td>{{booking.numberOfPeople}}</td>
                 <td>{{booking.tableNumber}}</td>
                 <td>{{booking.bookingTime | date: 'dd/MM/yyyy HH:mm'}}</td>
-                <td><button class="btn btn-sm btn-danger" ng-click="vm.editBooking(booking)">Edit</button></td>
+                <!--<td><button class="btn btn-sm btn-danger" ng-click="vm.editBooking(booking)">Edit</button></td>-->
             </tr>
 
         </tbody>
@@ -45,30 +52,32 @@
     <form ng-show="vm.showNewBookingForm">
         <div class="form-group">
             <label for="contactName">Contact Name </label>
-            <input type="text"class="form-control" id="contactName" ng-model="vm.ContactName" />
-         
+            <input type="text" class="form-control" id="contactName" ng-model="vm.contactName" />
+
         </div>
         <div class="form-group">
             <label for="contactNumber">Contact Number</label>
-            <input type="text" class="form-control" id="contactNumber" ng-model="vm.ContactNumber"/>
+            <input type="text" class="form-control" id="contactNumber" ng-model="vm.contactNumber" />
 
         </div>
         <div class="form-group">
             <label for="numberOfPeople">Number Of People </label>
-            <input type="text" class="form-control" id="numberOfPeople" ng-model="vm.numberOfPeople"/>
+            <input type="text" class="form-control" id="numberOfPeople" ng-model="vm.numberOfPeople" />
 
         </div>
         <div class="form-group">
             <label for="tableNumber">Table Number </label>
-            <input type="text" class="form-control" id="tableNumber" ng-model="vm.tableNumber"/>
+            <input type="text" class="form-control" id="tableNumber" ng-model="vm.tableNumber" />
 
         </div>
         <div class="form-group">
+
             <label for="bookingTime">Booking Time </label>
-            <input type="text" class="form-control" id="bookingTime" ng-model="vm.bookingTime" />
+            <md-datepicker ng-model="vm.bookingTime"> </md-datepicker> <md-timepicker ng-model="vm.bookingTime"> </md-timepicker>
 
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>>
+   
+        <button type="submit" class="btn btn-success" ng-click="vm.createBooking()">Save</button>
     </form>
 
 

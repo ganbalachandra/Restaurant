@@ -24,6 +24,10 @@ namespace Carfinance.Phoenix.Kata.Angular.Services
 
         public void CreateBooking(Booking booking)
         {
+
+           
+            bookings.Add(booking);
+
         }
     }
 }

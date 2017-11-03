@@ -2,6 +2,7 @@
 using Carfinance.Phoenix.Kata.Angular.Services;
 using Carfinance.Phoenix.Kata.Angular.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace Carfinance.Phoenix.Kata.Angular.Controllers
@@ -33,6 +34,19 @@ namespace Carfinance.Phoenix.Kata.Angular.Controllers
             IEnumerable<Booking> bookings = bookingService.GetAllBookings();
 
             return Ok(bookings);
+        }
+        [HttpPost]
+        [Route("")]
+        public void Post(Booking booking)
+        {
+
+            var bookings = bookingService.GetAllBookings();
+            int Id = bookings.OrderByDescending(x => x.BookingId).Select(x => x.BookingId).FirstOrDefault();
+            booking.BookingId = Id + 1;
+
+            bookingService.CreateBooking(booking);
+
+         
         }
     }
 }

@@ -37,6 +37,11 @@ namespace Carfinance.Phoenix.Kata.Angular.Services
                 {
                     string json = r.ReadToEnd();
                     bookings = JsonConvert.DeserializeObject<List<Booking>>(json);
+                    //write to json file or replace this with DbContext EF to write to the Db
+                    //using (StreamWriter str = new StreamWriter(json))
+                    //{
+                    //    str.Write(HttpContext.Current.Server.MapPath("~/json/bookings.json"));
+                    //}
                 }
             }
           
