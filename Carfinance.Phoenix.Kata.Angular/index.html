@@ -3,14 +3,43 @@
 <head>
     <meta charset="utf-8" />
     <title>Phoenix Kata Angular</title>
-
+    
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.min.js"></script>
     <script src="app/module.js"></script>
+    <script src="app/controllers/bookingcontroller.js"></script>
 </head>
-<body ng-app="PhoenixKata">
-    Start building....
+<body ng-app="PhoenixKata" ng-controller="BookingController as vm">
+
+    <a ng-link="['Create']" class="btn btn-primary float-right">New Booking</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Contact Name</th>
+                <th>Contact Number</th>
+                <th>Number Of People</th>
+                <th>Table Number</th>
+                <th>Booking Times</th>
+
+            </tr>
+
+        </thead>
+    <tbody>
+        <tr ng-repeat="booking in vm.bookings | orderBy: '-bookingTime':true" 
+            ng-class="{'text-danger': booking.numberOfPeople > 6, 'text-primary':booking.numberOfPeople === 1}">
+            <td>{{booking.contactName}}</td>
+            <td>{{booking.contactNumber}}</td>
+            <td>{{booking.numberOfPeople}}</td>
+            <td>{{booking.tableNumber}}</td>
+            <td>{{booking.bookingTime | date: 'dd/MM/yyyy HH:mm'}}</td>
+        </tr>
+
+    </tbody>
+       
+   
+    </table>
+
 </body>
 </html>
