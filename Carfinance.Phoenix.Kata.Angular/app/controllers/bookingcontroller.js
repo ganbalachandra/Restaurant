@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('PhoenixKata').controller('BookingController', BookingController);
-
+    //$.Inject = ["BookingService"];
     function BookingController($http) {
         var vm = this;
         var dataService = $http;
@@ -21,8 +21,27 @@
             TableNumber: 0
 
         };
+        vm.createBooking = ceateBooking;
+        vm.editBooking = editBooking;
+        vm.showNewBookingForm = false;
+        vm.displayBookingTable = true;
+
+        function editBooking(Booking){
+
+            // no need to implement it
+
+        }
+
+        function ceateBooking() {
+            vm.showNewBookingForm = true;
+            vm.displayBookingTable = false;
+
+        }
+
+
         getBookings();
-        vm.orderByDate = new Date().getDate();
+        
+        //BookingService.getBookings();
         // get bookings
         function getBookings() {
 
@@ -35,7 +54,7 @@
 
         }
 
-
+        
         
     }
 })();

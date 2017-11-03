@@ -160,6 +160,7 @@
   <ItemGroup>
     <Content Include="app\controllers\bookingcontroller.js" />
     <Content Include="app\module.js" />
+    <Content Include="app\services\bookingService.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -199,9 +200,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
