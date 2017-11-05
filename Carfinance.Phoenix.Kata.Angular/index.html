@@ -23,14 +23,13 @@
     <script src="Scripts/moment.min.js"></script>
     <script src="Scripts/datetimepicker.js"></script>
     <script src="Scripts/datetimepicker.templates.js"></script>
-
-
 </head>
-<body ng-app="PhoenixKata" ng-controller="BookingController as vm">
 
-    <a ng-link="['Create']" class="btn btn-primary float-right" ng-click="vm.displayForm()" ng-show="vm.showBookingButton">New Booking</a>
-    <table class="table" ng-show="vm.displayBookingTable">
-        <thead>
+<body ng-app="PhoenixKata" ng-controller="BookingController as vm"ng-cloak>
+    <a ng-link="['Create']" class="btn btn-primary" ng-click="vm.displayForm()" ng-show="vm.showBookingButton" style="margin:20px 642px"> New Booking</a>
+    <table class="table" ng-show="vm.displayBookingTable" style="width:800px">
+   
+        <thead class="thead-dark">
             <tr>
                 <th>Contact Name</th>
                 <th>Contact Number</th>
@@ -38,11 +37,10 @@
                 <th>Table Number</th>
                 <th>Booking Times</th>
             </tr>
-
         </thead>
         <tbody>
             <tr ng-repeat="booking in vm.bookings | orderBy: '-bookingTime':true"
-                ng-class="{'text-danger': booking.numberOfPeople > 6, 'text-primary':booking.numberOfPeople === 1}">
+                ng-class="{'text-danger': booking.numberOfPeople > 6, 'text-primary':booking.numberOfPeople === 1}" ng-click="vm.editBookingDisplay(booking)">
                 <td>{{booking.contactName}}</td>
                 <td>{{booking.contactNumber}}</td>
                 <td>{{booking.numberOfPeople}}</td>
@@ -55,7 +53,12 @@
     </table>
 
 
-    <form ng-show="vm.showNewBookingForm">
+    <form ng-show="vm.showNewBookingForm" style="width:600px;" >
+
+        <div class="form-group">
+        <h2>{{vm.formTitle}}</h2>
+
+        </div>
         <div class="form-group">
             <label for="contactName">Contact Name </label>
             <input type="text" class="form-control" id="contactName" ng-model="vm.contactName" />
@@ -92,11 +95,12 @@
                 </ul>
             </div>
             <!--<md-datepicker ng-model="vm.bookingTime"> </md-datepicker> <md-timepicker ng-model="vm.bookingTime"> </md-timepicker>-->
-          
+
         </div>
 
         <button type="submit" class="btn btn-success" ng-click="vm.createBooking()">Save</button>
     </form>
+
 
 
 </body>

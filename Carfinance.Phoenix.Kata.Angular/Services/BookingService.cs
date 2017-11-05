@@ -34,10 +34,24 @@ namespace Carfinance.Phoenix.Kata.Angular.Services
         
             else if (booking.TableNumber >= 5 || booking.TableNumber <= 0 )
                     throw new ArgumentOutOfRangeException(string.Format("Table number {0} does not exist", booking.TableNumber));
-  
+            if (booking.BookingId > 0)
+            {
+                var bookingObj = bookings.FirstOrDefault(x => x.BookingId == booking.BookingId);
+                bookingObj.BookingTime = booking.BookingTime;
+                bookingObj.ContactName = booking.ContactName;
+                bookingObj.ContactNumber = booking.ContactNumber;
+                bookingObj.NumberOfPeople = booking.NumberOfPeople;
+                bookingObj.TableNumber = booking.TableNumber;
+            }
+            else
+            {
+
                 int Id = bookings.OrderByDescending(x => x.BookingId).Select(x => x.BookingId).FirstOrDefault();
                 booking.BookingId = Id + 1;// increment booking ID
+
                 bookings.Add(booking);
+            }
+       
 
         }
     }

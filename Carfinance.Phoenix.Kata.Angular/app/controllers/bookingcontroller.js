@@ -15,7 +15,7 @@
             vm.createBooking = ceateBooking;
             vm.displayForm = displayForm;
             vm.getBookings = getBookings;
-            vm.editBookings = editBookings;
+            vm.editBookingDisplay = editBookingDisplay;
             vm.bookings = [];
             vm.showNewBookingForm = false;
             vm.displayBookingTable = true;
@@ -23,38 +23,39 @@
 
             getBookings();
 
-            vm.startDateBeforeRender = function ($dates) {
-                const todaySinceMidnight = new Date();
-                todaySinceMidnight.setUTCHours(0, 0, 0, 0);
-                $dates.filter(function (date) {
-                    return date.utcDateValue < todaySinceMidnight.getTime();
-                }).forEach(function (date) {
-                    date.selectable = false;
-                });
-            };
-
         }
 
         function displayForm(){
-        
+            vm.formTitle = "Create Booking";
             vm.showNewBookingForm = true;
             vm.displayBookingTable = false;
             vm.showBookingButton = false;
         }
 
         //edit booking
-        function editBookings(bookings) {
-            BookingService.editBookings(booking);
-
+        function editBookingDisplay(booking) {
+            displayForm();
+            vm.formTitle = "Edit Booking";
+            vm.bookingId = booking.bookingId;
+            vm.bookingTime= booking.bookingTime;
+            vm.contactNumber = booking.contactNumber;
+            vm.contactName = booking.contactName;
+            vm.numberOfPeople = booking.numberOfPeople;
+            vm.tableNumber = booking.tableNumber;
 
         }
+
+
         // create bookings
         function ceateBooking() {
-            console.log("create booking");
-          
-
+           
+            
+            var bookingId = 0;
+            if (vm.bookingId > 0)
+                bookingId = vm.bookingId;
+        
             vm.booking = {
-                BookingId: 0,
+                BookingId: bookingId,
                 BookingTime: vm.bookingTime,
                 ContactNumber: vm.contactNumber,
                 ContactName: vm.contactName,
