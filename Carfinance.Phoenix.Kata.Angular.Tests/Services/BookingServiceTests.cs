@@ -55,14 +55,18 @@ namespace Carfinance.Phoenix.Kata.Angular.Tests
         }
 
         [TestMethod]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CreateBooking_InvalidTableNumber_NegativeNumber_ThrowsArgumentOutOfRangeException()
         {
-            var booking = new Booking
-            {
-                TableNumber = -1
-            };
+           
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => bookingService.CreateBooking(booking));
+                var booking = new Booking
+                {
+                    TableNumber = -1
+                };
+
+                Assert.ThrowsException<ArgumentOutOfRangeException>(() => bookingService.CreateBooking(booking));
+
         }
 
         [TestMethod]

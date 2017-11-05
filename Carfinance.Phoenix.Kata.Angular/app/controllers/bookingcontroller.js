@@ -3,14 +3,14 @@
     'use strict';
 
 
-    angular.module('PhoenixKata', ['ngMaterial']).controller('BookingController', ['BookingService', BookingController]);
+    angular.module('PhoenixKata', ['ngMaterial', 'ui.bootstrap.datetimepicker']).controller('BookingController', ['BookingService', BookingController]);
 
     function BookingController(BookingService) {
         var vm = this;
  
         init();
       
-
+        // init prop
         function init() {
             vm.createBooking = ceateBooking;
             vm.displayForm = displayForm;
@@ -22,6 +22,16 @@
             vm.showBookingButton = true;
 
             getBookings();
+
+            vm.startDateBeforeRender = function ($dates) {
+                const todaySinceMidnight = new Date();
+                todaySinceMidnight.setUTCHours(0, 0, 0, 0);
+                $dates.filter(function (date) {
+                    return date.utcDateValue < todaySinceMidnight.getTime();
+                }).forEach(function (date) {
+                    date.selectable = false;
+                });
+            };
 
         }
 

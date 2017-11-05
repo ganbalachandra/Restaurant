@@ -9,16 +9,21 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.min.js"></script>
     <link href="Content/angular-material.css" rel="stylesheet" />
+    <link href="Content/datetimepicker.css" rel="stylesheet" />
     <script src="Scripts/angular-animate.min.js"></script>
     <script src="Scripts/angular-aria.min.js"></script>
     <script src="Scripts/angular-material.min.js"></script>
     <script src="app/module.js"></script>
-  
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="app/controllers/bookingcontroller.js"></script>
     <script src="app/services/bookingService.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
     <script src="app/services/bookingService.js"></script>
     <script src="Scripts/moment-with-locales.min.js"></script>
     <script src="Scripts/moment.min.js"></script>
+    <script src="Scripts/datetimepicker.js"></script>
+    <script src="Scripts/datetimepicker.templates.js"></script>
+
 
 </head>
 <body ng-app="PhoenixKata" ng-controller="BookingController as vm">
@@ -74,10 +79,22 @@
         <div class="form-group">
 
             <label for="bookingTime">Booking Time </label>
-            <md-datepicker ng-model="vm.bookingTime"> </md-datepicker> <md-timepicker ng-model="vm.bookingTime"> </md-timepicker>
-
+            <div class="dropdown">
+                <a class="dropdown-toggle" id="dropdown" role="button" data-toggle="dropdown" data-target=".dropdown" href="#">
+                    <div class="input-group">
+                        <input type="text" id="date" name="date" class="form-control" data-ng-model="vm.bookingTime">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <datetimepicker data-ng-model="vm.bookingTime"
+                                    data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
+                </ul>
+            </div>
+            <!--<md-datepicker ng-model="vm.bookingTime"> </md-datepicker> <md-timepicker ng-model="vm.bookingTime"> </md-timepicker>-->
+          
         </div>
-   
+
         <button type="submit" class="btn btn-success" ng-click="vm.createBooking()">Save</button>
     </form>
 

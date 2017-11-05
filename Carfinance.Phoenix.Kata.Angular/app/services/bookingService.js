@@ -1,9 +1,9 @@
 ﻿(function () {
 
     angular.module('PhoenixKata')
-        .factory('BookingService', ['$http',BookingService]);
+        .factory('BookingService', ['$http', '$location', BookingService]);
 
-    function BookingService($http) {
+    function BookingService($http, $location) {
         var dataService = $http;
 
         return {
@@ -24,16 +24,18 @@
             });
 
         }
+        // create bookings
         function createBookings(booking) {
             dataService.post("http://localhost:52363/booking", booking)
                     .then(function (result) {
                         console.log(result);
-                        window.location = "/INDEX.HTML"; // use $location
+                        window.location= "/INDEX.HTML"; 
                     }, function (error) {
                         //handleException(error);
                     });
 
         }
+        //edit bookings
         function editBookings(booking) {
             dataService.put("http://localhost:52363/booking", booking)
             .then(function (result) {
@@ -43,7 +45,6 @@
             });
 
         }
-
 
     }
 
