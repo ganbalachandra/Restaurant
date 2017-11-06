@@ -5,6 +5,11 @@ using Carfinance.Phoenix.Kata.Angular.Services;
 using System.Collections.Generic;
 using Moq;
 using Carfinance.Phoenix.Kata.Angular.Models;
+using Carfinance.Phoenix.Kata.Angular.DAL;
+using System.Data.Entity;
+using Carfinance.Phoenix.Kata.Angular.Repository;
+using System.Data.Entity.Infrastructure;
+using System.Data.Common;
 
 namespace Carfinance.Phoenix.Kata.Angular.Tests
 {
@@ -15,9 +20,15 @@ namespace Carfinance.Phoenix.Kata.Angular.Tests
         private Mock<IDataService> dataServiceMock;
         private IList<Booking> bookings;
 
+        private  RestaurantContext _ctx;
+        private BaseRepository<Booking> _bookingRepository;
+        private List<Booking> _bookings;
+
         [TestInitialize]
         public void Initialize()
         {
+
+         
             bookings = new List<Booking>
             {
                 new Booking { BookingId = 1 },
@@ -25,6 +36,14 @@ namespace Carfinance.Phoenix.Kata.Angular.Tests
                 new Booking { BookingId = 7 },
                 new Booking { BookingId = 5 }
             };
+            //var mockSet = new Mock<DbSet<Booking>>();
+            //var mockContext = new Mock<RestaurantContext>();
+            //mockContext.Setup(m => m.Bookings).Returns(mockSet.Object);
+
+            //var mockRepo = new Mock<RestaurantRepository>(mockContext);
+
+            //var bookingService = new BookingService(mockRepo.Object);
+
 
             dataServiceMock = new Mock<IDataService>();
             dataServiceMock.Setup(d => d.Initialize()).Returns(bookings);
@@ -138,14 +157,26 @@ namespace Carfinance.Phoenix.Kata.Angular.Tests
             var booking = new Booking()
             {
                 ContactName = "Banana",
-                TableNumber = 1
+                TableNumber = 1,
+                BookingTime = DateTime.Parse("2017-06-25 11:30"),
+                ContactNumber = "07226374521",
+                NumberOfPeople = 10,
+               
+
             };
 
+            var context = new RestaurantContext();
+            var repo = new RestaurantRepository();
+            var bookingService = new BookingService(repo);
+
+            var count = bookingService.GetAllBookings().Count;
             // Act
             bookingService.CreateBooking(booking);
 
             // Assert
+            //Assert.AreEqual(count+1, bookingService.GetAllBookings().Count);
             Assert.AreEqual(5, bookingService.GetAllBookings().Count);
+
         }
 
         [TestMethod]
@@ -155,8 +186,18 @@ namespace Carfinance.Phoenix.Kata.Angular.Tests
             var booking = new Booking()
             {
                 ContactName = "Banana",
-                TableNumber = 1
+                TableNumber = 1,
+                BookingTime = DateTime.Parse("2017-06-25 11:30"),
+                ContactNumber = "07226374521",
+                NumberOfPeople = 10,
+
             };
+
+
+
+            var context = new RestaurantContext();
+            var repo = new RestaurantRepository();
+            var bookingService = new BookingService(repo);
 
             // Act
             bookingService.CreateBooking(booking);

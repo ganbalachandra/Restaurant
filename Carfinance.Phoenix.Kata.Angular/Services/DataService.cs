@@ -4,6 +4,8 @@ using System.Web;
 using Carfinance.Phoenix.Kata.Angular.Models;
 using Newtonsoft.Json;
 using System.IO;
+using Carfinance.Phoenix.Kata.Angular.Repository;
+using System.Linq;
 
 namespace Carfinance.Phoenix.Kata.Angular.Services
 {
@@ -29,20 +31,24 @@ namespace Carfinance.Phoenix.Kata.Angular.Services
     {
         private static IList<Booking> bookings;
 
+        private RestaurantRepository _context;
+
         public IList<Booking> Initialize()
         {
+           
             if (bookings == null)
             {
-                using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath("~/json/bookings.json")))
-                {
-                    string json = r.ReadToEnd();
-                    bookings = JsonConvert.DeserializeObject<List<Booking>>(json);
-                    //write to json file or replace this with DbContext EF to write to the Db
-                    //using (StreamWriter str = new StreamWriter(json))
-                    //{
-                    //    str.Write(HttpContext.Current.Server.MapPath("~/json/bookings.json"));
-                    //}
-                }
+                bookings = new RestaurantRepository().All().ToList();
+                //using (StreamReader r = new StreamReader(HttpContext.Current.Server.MapPath("~/json/bookings.json")))
+                //{
+                //    string json = r.ReadToEnd();
+                //    bookings = JsonConvert.DeserializeObject<List<Booking>>(json);
+                //    //write to json file or replace this with DbContext EF to write to the Db
+                //    //using (StreamWriter str = new StreamWriter(json))
+                //    //{
+                //    //    str.Write(HttpContext.Current.Server.MapPath("~/json/bookings.json"));
+                //    //}
+                //}
             }
           
             return bookings;
